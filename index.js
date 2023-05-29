@@ -44,8 +44,8 @@ async function run() {
                 total_amount: product?.price,
                 currency: 'BDT',
                 tran_id: trans_id, // use unique tran_id for each api call
-                success_url: `http://localhost:5000/Success/${trans_id}`,
-                fail_url: `http://localhost:5000/Failed/${trans_id}`,
+                success_url: `https://nextcommerce1backend.onrender.com/Success/${trans_id}`,
+                fail_url: `https://nextcommerce1backend.onrender.com/Failed/${trans_id}`,
                 cancel_url: 'http://localhost:3030/cancel',
                 ipn_url: 'http://localhost:3030/ipn',
                 shipping_method: 'Courier',
@@ -95,14 +95,14 @@ async function run() {
                    
                 })
                 if(result.modifiedCount>0){
-                    res.redirect(`http://localhost:3000/Success/${req.params.trainId}`)
+                    res.redirect(`https://next-commerce1frontend.vercel.app/Success/${req.params.trainId}`)
                 }
                 
             })
             app.post('/Failed/:trainId',async(req,res)=>{
                 const result=await Ordercollection.deleteOne({TransicationId:req.params.trainId})
                 if(result.deletedCount){
-                    res.redirect(`http://localhost:3000/Failed/${req.params.trainId}`)
+                    res.redirect(`https://next-commerce1frontend.vercel.app/Failed/${req.params.trainId}`)
                 }
             })
         })
