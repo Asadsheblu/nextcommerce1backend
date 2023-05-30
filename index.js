@@ -77,7 +77,7 @@ async function run() {
                 let GatewayPageURL = apiResponse.GatewayPageURL
                 res.send({url:GatewayPageURL})
                 const finalOrder={
-                    product,
+                    product:product?.name,
                     paymentStatus:false,
                     TransicationId:trans_id
                 }
@@ -120,7 +120,7 @@ async function run() {
         // })
 
 
-        app.post("/product", async (req, res) => {
+        app.post("/product", async (req,res) => {
             const doc = req.body
             const result = await Products.insertOne(doc);
             console.log(result);
