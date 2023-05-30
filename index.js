@@ -42,14 +42,14 @@ async function run() {
             const order=req.body
             const data = {
                 total_amount: product?.price,
-                currency: 'BDT',
+                product_name: product?.name,
                 tran_id: trans_id, // use unique tran_id for each api call
                 success_url: `https://nextcommerce1backend.onrender.com/Success/${trans_id}`,
                 fail_url: `https://nextcommerce1backend.onrender.com/Failed/${trans_id}`,
                 cancel_url: 'http://localhost:3030/cancel',
                 ipn_url: 'http://localhost:3030/ipn',
                 shipping_method: 'Courier',
-                product_name: product?.name,
+                
                 product_category: product?.category,
                 product_profile: 'general',
                 cus_name: 'Customer Name',
