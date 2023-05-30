@@ -42,14 +42,14 @@ async function run() {
             const order=req.body
             const data = {
                 total_amount: product?.price,
-                product_name: product?.name,
+                currency: 'BDT',
                 tran_id: trans_id, // use unique tran_id for each api call
-                success_url: `https://nextcommerce1backend.onrender.com/Success/${trans_id}`,
-                fail_url: `https://nextcommerce1backend.onrender.com/Failed/${trans_id}`,
+                success_url: `http://localhost:5000/Success/${trans_id}`,
+                fail_url: `http://localhost:5000/Failed/${trans_id}`,
                 cancel_url: 'http://localhost:3030/cancel',
                 ipn_url: 'http://localhost:3030/ipn',
                 shipping_method: 'Courier',
-                
+                product_name: product?.name,
                 product_category: product?.category,
                 product_profile: 'general',
                 cus_name: 'Customer Name',
@@ -77,7 +77,7 @@ async function run() {
                 let GatewayPageURL = apiResponse.GatewayPageURL
                 res.send({url:GatewayPageURL})
                 const finalOrder={
-                    product:product?.name,
+                    product,
                     paymentStatus:false,
                     TransicationId:trans_id
                 }
@@ -95,14 +95,14 @@ async function run() {
                    
                 })
                 if(result.modifiedCount>0){
-                    res.redirect(`https://next-commerce1frontend.vercel.app/Success/${req.params.trainId}`)
+                    res.redirect(`http://localhost:3000/Success/${req.params.trainId}`)
                 }
                 
             })
             app.post('/Failed/:trainId',async(req,res)=>{
                 const result=await Ordercollection.deleteOne({TransicationId:req.params.trainId})
                 if(result.deletedCount){
-                    res.redirect(`https://next-commerce1frontend.vercel.app/Failed/${req.params.trainId}`)
+                    res.redirect(`http://localhost:3000/Failed/${req.params.trainId}`)
                 }
             })
         })
@@ -112,6 +112,7 @@ async function run() {
             const orders=await result.toArray()
             res.send(orders)
         })
+        
         // app.get('/order/:id', async (req, res) => {
         //     const id =(req.params.id);
         //     const query = { _id: new ObjectId(id) }
