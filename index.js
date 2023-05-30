@@ -134,9 +134,9 @@ async function run() {
             res.send(products)
         })
        
-        app.get('/product/:id', async (req, res) => {
+        app.get('/product/:id', async (req,res) => {
             const id =(req.params.id);
-            const query = { _id: new ObjectId(id) }
+            const query = { _id:new ObjectId(id) }
             const result = await Products.findOne(query)
             res.send(result)
         })
