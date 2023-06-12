@@ -95,14 +95,14 @@ async function run() {
                    
                 })
                 if(result.modifiedCount>0){
-                    res.redirect(`http://localhost:3000/Success/${req.params.trainId}`)
+                    res.redirect(`https://next-commerce1frontend.vercel.app/Success/${req.params.trainId}`)
                 }
                 
             })
             app.post('/Failed/:trainId',async(req,res)=>{
                 const result=await Ordercollection.deleteOne({TransicationId:req.params.trainId})
                 if(result.deletedCount){
-                    res.redirect(`http://localhost:3000/Failed/${req.params.trainId}`)
+                    res.redirect(`https://next-commerce1frontend.vercel.app/Failed/${req.params.trainId}`)
                 }
             })
         })
