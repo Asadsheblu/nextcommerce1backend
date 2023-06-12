@@ -82,8 +82,8 @@ async function run() {
                     TransicationId:trans_id
                 }
                 const result=Ordercollection.insertOne(finalOrder)
-            
-                console.log('Redirecting to: ', GatewayPageURL)
+                       
+                
             });
             app.post("/Success/:trainId",async(req,res)=>{
                 console.log(req.params.trainId);
@@ -113,18 +113,18 @@ async function run() {
             res.send(orders)
         })
         
-        // app.get('/order/:id', async (req, res) => {
-        //     const id =(req.params.id);
-        //     const query = { _id: new ObjectId(id) }
-        //     const result = await Ordercollection.findOne(query)
-        //     res.send(result)
-        // })
+        app.get('/order/:id', async (req, res) => {
+            const id =(req.params.id);
+            const query = { _id: new ObjectId(id) }
+            const result = await Ordercollection.findOne(query)
+            res.send(result)
+        })
 
 
         app.post("/product", async (req,res) => {
             const doc = req.body
             const result = await Products.insertOne(doc);
-            console.log(result);
+          
             res.send(result);
         });
 
