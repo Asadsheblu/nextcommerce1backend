@@ -44,8 +44,8 @@ async function run() {
                 total_amount: product?.price,
                 currency: 'BDT',
                 tran_id: trans_id, // use unique tran_id for each api call
-                success_url: `http://localhost:5000/Success/${trans_id}`,
-                fail_url: `http://localhost:5000/Failed/${trans_id}`,
+                success_url: `https://nextcommerce1backend.onrender.com/Success/${trans_id}`,
+                fail_url: `https://nextcommerce1backend.onrender.com/Failed/${trans_id}`,
                 cancel_url: 'http://localhost:3030/cancel',
                 ipn_url: 'http://localhost:3030/ipn',
                 shipping_method: 'Courier',
