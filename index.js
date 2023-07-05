@@ -51,7 +51,7 @@ async function run() {
                 shipping_method: 'Courier',
                 product_name: product?.name,
                 product_category: product?.category,
-                product_qty: product?.qty,
+                order_qty: order?.qty,
                 product_profile: 'general',
                 cus_name: order?.name,
                 cus_email: order?.email,
