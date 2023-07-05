@@ -52,7 +52,7 @@ async function run() {
                 product_name: product?.name,
                 product_category: product?.category,
                 product_profile: 'general',
-                cus_name: 'Customer Name',
+                cus_name: order?.name,
                 cus_email: order?.email,
                 cus_add1: order?.address,
                 cus_add2: 'Dhaka',
