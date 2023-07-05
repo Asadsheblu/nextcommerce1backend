@@ -79,7 +79,8 @@ async function run() {
                 const finalOrder={
                     product,
                     paymentStatus:false,
-                    TransicationId:trans_id
+                    TransicationId:trans_id,
+                    data:data
                 }
                 const result=Ordercollection.insertOne(finalOrder)
                        
