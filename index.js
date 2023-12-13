@@ -24,7 +24,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send("Hello Ecommeerce Project1")
 })
-var uri = "mongodb://eproject1:oGFM8IDlr0tG9Ijo@cluster0-shard-00-00.7auxx.mongodb.net:27017,cluster0-shard-00-01.7auxx.mongodb.net:27017,cluster0-shard-00-02.7auxx.mongodb.net:27017/?ssl=true&replicaSet=atlas-quc4tl-shard-0&authSource=admin&retryWrites=true&w=majority";
+var uri = "mongodb://Eproject1:oGFM8IDlr0tG9Ijo@cluster0-shard-00-00.7auxx.mongodb.net:27017,cluster0-shard-00-01.7auxx.mongodb.net:27017,cluster0-shard-00-02.7auxx.mongodb.net:27017/?ssl=true&replicaSet=atlas-quc4tl-shard-0&authSource=admin&retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const store_id = process.env.store_id;
 const store_passwd =process.env.store_passwd;
@@ -36,6 +36,7 @@ async function run() {
         const trans_id=new ObjectId().toString();
         const Products = client.db("Eproject1").collection("products")
         const Ordercollection = client.db("Eproject1").collection("order")
+        const cartCollection = client.db("Eproject1").collection("carts")
         app.post("/order",async(req,res)=>{
             const product=await Products.findOne({_id: new ObjectId(req.body.productId)})
             // console.log(product);
@@ -143,7 +144,13 @@ async function run() {
             const result = await Products.findOne(query)
             res.send(result)
         })
-
+        //Carts Colection
+        app.post("/carts", async (req,res) => {
+            const doc = req.body
+            const result = await cartCollection.insertOne(doc);
+          
+            res.send(result);
+        });
        
     }
     finally {
