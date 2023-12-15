@@ -24,7 +24,7 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.send("Hello Ecommeerce Project1")
 })
-var uri = "mongodb://Eproject1:oGFM8IDlr0tG9Ijo@cluster0-shard-00-00.7auxx.mongodb.net:27017,cluster0-shard-00-01.7auxx.mongodb.net:27017,cluster0-shard-00-02.7auxx.mongodb.net:27017/?ssl=true&replicaSet=atlas-quc4tl-shard-0&authSource=admin&retryWrites=true&w=majority";
+var uri = "mongodb://eproject1:yCZZ62xM7ZxQJLw0@cluster0-shard-00-00.7auxx.mongodb.net:27017,cluster0-shard-00-01.7auxx.mongodb.net:27017,cluster0-shard-00-02.7auxx.mongodb.net:27017/?ssl=true&replicaSet=atlas-quc4tl-shard-0&authSource=admin&retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 const store_id = process.env.store_id;
 const store_passwd =process.env.store_passwd;
@@ -144,14 +144,29 @@ async function run() {
             const result = await Products.findOne(query)
             res.send(result)
         })
-        //Carts Colection
+        //Carts Collection
         app.post("/carts", async (req,res) => {
             const doc = req.body
             const result = await cartCollection.insertOne(doc);
           
             res.send(result);
         });
-       
+        app.get('/carts',async(req,res)=>{
+          const email=req.query.email
+          if(!email){
+            res.send([])
+          }
+          const query={email:email}
+          const result=await cartCollection.find(query).toArray()
+          res.send(result)
+
+        })
+        app.delete("/carts/:id",async(req,res)=>{
+            const id=req.params.id;
+            const query={_id: new ObjectId(id)};
+            const result=await cartCollection.deleteOne(query);
+            res.send(result)
+        })
     }
     finally {
         // await client.close();
