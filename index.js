@@ -37,6 +37,7 @@ async function run() {
         const Products = client.db("Eproject1").collection("products")
         const Ordercollection = client.db("Eproject1").collection("order")
         const cartCollection = client.db("Eproject1").collection("carts")
+        const userCollection = client.db("Eproject1").collection("user")
         app.post("/order",async(req,res)=>{
             const product=await Products.findOne({_id: new ObjectId(req.body.productId)})
             // console.log(product);
@@ -146,8 +147,8 @@ async function run() {
         })
         //Carts Collection
         app.post("/carts", async (req,res) => {
-            const doc = req.body
-            const result = await cartCollection.insertOne(doc);
+            const cart = req.body
+            const result = await cartCollection.insertOne(cart);
           
             res.send(result);
         });
@@ -167,6 +168,13 @@ async function run() {
             const result=await cartCollection.deleteOne(query);
             res.send(result)
         })
+        //user Collection
+        app.post("/users", async (req,res) => {
+            const user = req.body;
+            const result = await userCollection.insertOne(user);
+          
+            res.send(result);
+        });
     }
     finally {
         // await client.close();
